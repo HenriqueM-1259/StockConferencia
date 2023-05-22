@@ -5,7 +5,7 @@
         public int Id { get; set; }
         public long ProdEan { get; set; }
         public long ProdCod { get; set; }
-        public string? ProdName { get; set; }
+        public string ProdName { get; set; }
 
 
         public string ReturnProdutoToString()

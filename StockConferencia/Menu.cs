@@ -4,11 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace StockConferencia
 {
     public class Menu
     {
+        Exception error = new Exception();
         ProdutosView produtosView = new ProdutosView();
         bool sair = true;
         int opcao;
@@ -17,36 +19,57 @@ namespace StockConferencia
 
             while (sair)
             {
-                Console.Clear();
+                try
+                {
+                    Console.Clear();
+                    this.RenderOpcao();
+                    error = new Exception("Erro ao inserir uma opcao");
+                    opcao = int.Parse(Console.ReadLine());
 
-                Console.WriteLine(@"
--= -= -= -= O que deseja Fazer hoje =- =- =- =-
+                    switch (opcao)
+                    {
+                        case 0:
+                            sair = false;
+
+                            break;
+                        case 1:
+
+                            break;
+                        case 2:
+                            Console.Clear();
+                            produtosView.RenderProdutosView();
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                catch (Exception)
+                {
+                    Console.Clear();
+                    if (error.Message != null)
+                    {
+                        Console.WriteLine(error.Message);
+                    }
+                    Console.WriteLine("Pressione qualquer tecla para continuar");
+                    Console.ReadKey();
+
+                }
+                
+            }
+
+        }
+
+        public void RenderOpcao()
+        {
+            Console.WriteLine(@"
+-= -= -= -=         Menu         =- =- =- =-
+
+            1 - Lotes
 
             2 - Produtos
 	
             0 - sair
 					");
-
-                opcao = int.Parse(Console.ReadLine());
-
-                switch (opcao)
-                {
-                    case 0:
-                        sair = false;
-
-                        break;
-                    case 1:
-
-                        break;
-                    case 2:
-                        Console.Clear();
-                        produtosView.OpcoesView();
-                        break;
-                    default:
-                        break;
-                }
-            }
-
         }
     }
 }

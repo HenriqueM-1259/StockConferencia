@@ -28,6 +28,14 @@ namespace StockConferencia.Helpers
         {
             if (p == null) { return null; }
 
+
+            if (p.Id == null)
+            {
+                int CountId = ProdutosDb.Count();
+                CountId += 1;
+                p.Id = CountId;
+            }
+
             ProdutosDb.Add(p);
 
             return new ProdutoModels
@@ -39,13 +47,23 @@ namespace StockConferencia.Helpers
 
         public string DeleteProd(int id)
         {
+            try
+            {
+                if (id == null) { return null; }
 
-            if (id == null) { return null; }
+                ProdutoModels p = GetId(id);
 
-            ProdutoModels p = GetId(id);
-            ProdutosDb.Remove(p);
+                if (p == null) { throw new Exception("Produto nao existe"); }
+                ProdutosDb.Remove(p);
 
-            return "Produto Excluido com exito";
+                return "Produto Excluido com exito";
+            }
+            catch (Exception e)
+            {
+               return e.Message;
+
+            }
+           
 
         }
     }
