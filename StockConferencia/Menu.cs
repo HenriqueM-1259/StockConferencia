@@ -12,6 +12,7 @@ namespace StockConferencia
     {
         Exception error = new Exception();
         ProdutosView produtosView = new ProdutosView();
+        LotesView lotesView = new LotesView();
         bool sair = true;
         int opcao;
         public void RenderMenu()
@@ -33,7 +34,8 @@ namespace StockConferencia
 
                             break;
                         case 1:
-
+                            Console.Clear();
+                            lotesView.RenderLotesView();
                             break;
                         case 2:
                             Console.Clear();
