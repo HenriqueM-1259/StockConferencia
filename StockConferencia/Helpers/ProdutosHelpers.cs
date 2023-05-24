@@ -7,21 +7,22 @@ namespace StockConferencia.Helpers
     public class ProdutosHelpers : IProdutosHelpers
     {
         public List<ProdutoModels> ProdutosDb = new DBContext().returnAllProdutos();
+        Exception error = new Exception();
 
         public List<ProdutoModels> GetAll()
         {
             return ProdutosDb;
         }
 
-        public ProdutoModels GetId(int id)
+        public ProdutoModels GetId(int idProduto)
         {
-            if (id == null) { return null; }
+            if (idProduto == null) { error = new Exception("Erro ao Inserir o Id"); return null; }
 
-            ProdutoModels p = ProdutosDb.Find(x => x.Id == id);
+            ProdutoModels produto = ProdutosDb.Find(Produto => Produto.Id == idProduto);
 
-            if (p == null) { return null; }
+            if (produto == null) { error = new Exception("Produto nao existe"); return null; }
 
-            return p;
+            return produto;
         }
 
         public ProdutoModels AddProduto(ProdutoModels p)

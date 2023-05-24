@@ -1,49 +1,24 @@
 ﻿using StockConferencia.View;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+using StockConferencia.View.LotesViews;
+using StockConferencia.View.ProdutosView;
 
 namespace StockConferencia
 {
     public class Menu
     {
-        Exception error = new Exception();
-        ProdutosView produtosView = new ProdutosView();
-        LotesView lotesView = new LotesView();
-        bool sair = true;
-        int opcao;
-        public void RenderMenu()
+        private Exception error = new Exception();
+        private ProdutosView produtosView = new ProdutosView();
+        private LotesView lotesView = new LotesView();
+        private bool sair = true;
+        private int opcao;
+        public void RenderizarMenu()
         {
-
             while (sair)
             {
                 try
                 {
                     Console.Clear();
-                    this.RenderOpcao();
-                    error = new Exception("Erro ao inserir uma opcao");
-                    opcao = int.Parse(Console.ReadLine());
-
-                    switch (opcao)
-                    {
-                        case 0:
-                            sair = false;
-
-                            break;
-                        case 1:
-                            Console.Clear();
-                            lotesView.RenderLotesView();
-                            break;
-                        case 2:
-                            Console.Clear();
-                            produtosView.RenderProdutosView();
-                            break;
-                        default:
-                            break;
-                    }
+                    this.RenderizarOpcoesMenu();
                 }
                 catch (Exception)
                 {
@@ -56,12 +31,16 @@ namespace StockConferencia
                     Console.ReadKey();
 
                 }
-                
             }
-
         }
-
-        public void RenderOpcao()
+        public void RenderizarOpcoesMenu()
+        {
+            this.RenderOpcaoView();
+            error = new Exception("Erro ao inserir uma opcao");
+            opcao = int.Parse(Console.ReadLine());
+            this.SelecionaProximaView();
+        }
+        public void RenderOpcaoView()
         {
             Console.WriteLine(@"
 -= -= -= -=         Menu         =- =- =- =-
@@ -70,8 +49,28 @@ namespace StockConferencia
 
             2 - Produtos
 	
+            3 - Adicionar Stock
+
             0 - sair
 					");
         }
+        public void SelecionaProximaView()
+        {
+            switch (opcao)
+            {
+                case 0:
+                    sair = false;
+                    break;
+                case 1:
+                    lotesView.RenderLotesView();
+                    break;
+                case 2:
+                    produtosView.RenderizarProdutosView();
+                    break;
+                default:
+                    break;
+            }
+        }
+        
     }
 }

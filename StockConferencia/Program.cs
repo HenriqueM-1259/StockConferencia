@@ -1,4 +1,4 @@
 ﻿using StockConferencia;
 
 Menu menu = new Menu();
-menu.RenderMenu();
+menu.RenderizarMenu();

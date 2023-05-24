@@ -19,7 +19,8 @@ namespace StockConferencia.Models
         public string ReturnLoteProdutoToString()
         {
             return @$"lote: {Lote.ReturnLoteToString()} - " +
-                $"Produto: {Produto.ReturnProdutoToString()}";
+                $"Produto: {Produto.ReturnProdutoToString()}," +
+                $"Quantidade:{Quantidade} ";
         }
     }
 }
